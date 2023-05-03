@@ -1,0 +1,18 @@
+  .weather-info-container {
+    display: flex;
+    align-items: center;
+  }
+  
+  .weather-info-text {
+    margin: 10px;
+    font-size: 16px;
+    line-height: 1.5;
+    font-weight: 600;
+    display: flex;
+  }
+  
+  .weather-info-label i{
+    margin-left: 10px;
+    font-weight: 400;
+    margin-right: 5px;
+  }
