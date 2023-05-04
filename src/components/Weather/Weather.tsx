@@ -3,6 +3,8 @@ import moment from "moment";
 import WeatherDisplay from "../WeatherDisplay/WeatherDisplay";
 import DateTimeComponent from "../DateTimeComponent/DateTimeComponent";
 import WeatherInfo from "../WeatherInfo/WeatherInfo";
+import "./Weather.css";
+import LocationSearch from "../LocationSearch/LocationSearch";
 
 const Weather = () => {
   const [weather, setWeather] = useState(null);
@@ -25,16 +27,24 @@ const Weather = () => {
 
   return (
     <div>
-      <WeatherDisplay kelvinTemp={283.15} />
-      <DateTimeComponent />
-      <WeatherInfo
-        wind={5}
-        humidity={80}
-        rain={30}
-        windIcon="wi wi-direction-right"
-        rainIcon="wi wi-rain"
-        humidityIcon="wi wi-humidity"
-      ></WeatherInfo>
+      <div>
+        <WeatherDisplay kelvinTemp={283.15} />
+        <DateTimeComponent />
+        <WeatherInfo
+          wind={5}
+          humidity={80}
+          rain={30}
+          windIcon="wi wi-direction-right"
+          rainIcon="wi wi-rain"
+          humidityIcon="wi wi-humidity"
+        ></WeatherInfo>
+      </div>
+      <div className="side-component-container"></div>
+      <LocationSearch
+        onSearch={(city: string) => {
+          console.log(`${city} pressed`);
+        }}
+      ></LocationSearch>
     </div>
   );
 };
