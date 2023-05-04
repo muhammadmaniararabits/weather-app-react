@@ -5,6 +5,11 @@ import DateTimeComponent from "../DateTimeComponent/DateTimeComponent";
 import WeatherInfo from "../WeatherInfo/WeatherInfo";
 import "./Weather.css";
 import LocationSearch from "../LocationSearch/LocationSearch";
+import ClockComponent from "../ClockComponent/ClockComponent";
+import LineIcon from "../LineWithIcon/LineWithIcon";
+import LineWithIcon from "../LineWithIcon/LineWithIcon";
+import WeatherDetail from "../WeatherDetail/WeatherDetail";
+import { WeatherForecast } from "../WeatherForecast/WeatherForecast";
 
 const Weather = () => {
   const [weather, setWeather] = useState(null);
@@ -38,6 +43,20 @@ const Weather = () => {
           rainIcon="wi wi-rain"
           humidityIcon="wi wi-humidity"
         ></WeatherInfo>
+        <WeatherForecast
+          forecasts={[
+            {
+              date: 1683265779,
+              icon: "sunny",
+              temp: 367,
+            },
+            {
+              date: 1683265779,
+              icon: "sunny",
+              temp: 367,
+            },
+          ]}
+        />
       </div>
       <div className="side-component-container"></div>
       <LocationSearch
@@ -45,6 +64,12 @@ const Weather = () => {
           console.log(`${city} pressed`);
         }}
       ></LocationSearch>
+      <div>
+        <ClockComponent time={1683265779} iconClass={""} />
+        <ClockComponent time={1683265779} iconClass={""} />
+      </div>
+      <LineWithIcon />
+      <WeatherDetail humidity={36} rain={2} airQuality={3} windSpeed={3.8} />
     </div>
   );
 };
