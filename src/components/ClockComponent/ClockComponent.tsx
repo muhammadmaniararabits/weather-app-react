@@ -23,10 +23,7 @@ const ClockComponent: React.FC<ClockProps> = ({ time, iconClass }) => {
     useCustomTime: true,
     width: "100%",
     border: true,
-    // borderColor: "#2e3131",
     baseColor: "#0000",
-    // centerColor: "#f5f5f5",
-    // centerBorderColor: "#2e3131",
     handColors: {
       second: "red",
       minute: "blue",

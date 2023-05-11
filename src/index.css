@@ -1,14 +1,9 @@
 * {
   box-sizing: border-box;
 }
-
-:root {
-  min-height: 100vh;
-  background-image: linear-gradient(243.18deg, #9065BC 0%, rgba(255, 0, 108, 0.38) 100%);
-}
-
 body {
-  margin: 50 px;
-  text-align: left;
-  color: #fff;
+  margin: 0;
+}
+.root {
+  background: linear-gradient(243.18deg, #9065BC 0%, rgba(255, 0, 108, 0.38) 100%);
 }

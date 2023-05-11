@@ -1,18 +1,27 @@
 import React, { useState, useEffect } from "react";
-import moment from "moment";
 import WeatherDisplay from "../WeatherDisplay/WeatherDisplay";
 import DateTimeComponent from "../DateTimeComponent/DateTimeComponent";
 import WeatherInfo from "../WeatherInfo/WeatherInfo";
 import "./Weather.css";
 import LocationSearch from "../LocationSearch/LocationSearch";
 import ClockComponent from "../ClockComponent/ClockComponent";
-import LineIcon from "../LineWithIcon/LineWithIcon";
 import LineWithIcon from "../LineWithIcon/LineWithIcon";
 import WeatherDetail from "../WeatherDetail/WeatherDetail";
 import { WeatherForecast } from "../WeatherForecast/WeatherForecast";
 
+type Wind = {
+  speed: string;
+};
+type Main = {
+  temp: number;
+};
+type Weather = {
+  main: Main;
+  wind: Wind;
+};
+
 const Weather = () => {
-  const [weather, setWeather] = useState(null);
+  const [weather, setWeather] = useState<Weather>();
 
   useEffect(() => {
     const fetchWeather = async () => {
@@ -31,9 +40,9 @@ const Weather = () => {
   }
 
   return (
-    <div>
-      <div>
-        <WeatherDisplay kelvinTemp={283.15} />
+    <div className="main-pane">
+      <div className="left-pane">
+        <WeatherDisplay kelvinTemp={weather.main.temp} />
         <DateTimeComponent />
         <WeatherInfo
           wind={5}
@@ -58,18 +67,18 @@ const Weather = () => {
           ]}
         />
       </div>
-      <div className="side-component-container"></div>
-      <LocationSearch
-        onSearch={(city: string) => {
-          console.log(`${city} pressed`);
-        }}
-      ></LocationSearch>
-      <div>
+      <div className="right-pane">
+        <div className="opaque-side-pane"></div>
+        <LocationSearch
+          onSearch={(city: string) => {
+            console.log(`${city} pressed`);
+          }}
+        ></LocationSearch>
         <ClockComponent time={1683265779} iconClass={""} />
         <ClockComponent time={1683265779} iconClass={""} />
+        <LineWithIcon />
+        <WeatherDetail humidity={36} rain={2} airQuality={3} windSpeed={3.8} />
       </div>
-      <LineWithIcon />
-      <WeatherDetail humidity={36} rain={2} airQuality={3} windSpeed={3.8} />
     </div>
   );
 };
