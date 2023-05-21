@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import "./WeatherDisplay.css";
+import Switch from "./Switch/Switch";
+
 interface Props {
   kelvinTemp: number;
 }
@@ -18,14 +20,42 @@ const WeatherDisplay: React.FC<Props> = ({ kelvinTemp }) => {
 
   return (
     <div className="weather-container">
-      <i className="wi wi-lightning"></i>
-      <div className="temp">{`${temp.toFixed(2)} ${tempUnit}`}</div>
-      <button
-        className={`toggle-switch ${isCelsius ? "on" : ""}`}
-        onClick={() => setIsCelsius(!isCelsius)}
+      <div
+        style={{
+          display: "flex",
+          flex: 1,
+          height: 100,
+          borderColor: "black",
+          flexDirection: "row",
+        }}
       >
-        <span className="sr-only">{isCelsius ? "F" : "C"}</span>
-      </button>
+        <div
+          style={{
+            flex: 1,
+            flexDirection: "row",
+
+            marginTop: 10,
+          }}
+        >
+          <i className="wi wi-cloud"></i>
+        </div>
+        {
+          <div
+            style={{
+              display: "flex",
+              flex: 1,
+              justifyContent: "flex-end",
+              alignItems: "end",
+              flexDirection: "row",
+
+              marginRight: 100,
+            }}
+          >
+            <Switch></Switch>
+          </div>
+        }
+      </div>
+      <div className="temp">{`${temp.toFixed(2)} ${tempUnit}`}</div>
     </div>
   );
 };

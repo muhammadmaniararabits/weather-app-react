@@ -1,3 +1,10 @@
+.main-pane {
+    min-height: 100vh;
+    display: flex;
+    background: linear-gradient(243.18deg, #9065BC 0%, rgba(255, 0, 108, 0.38) 100%);
+}
+
+
 .left-pane {
     width: 65%;
 }
@@ -17,10 +24,3 @@
     bottom: 0;
   }
 
-.main-pane {
-    min-height: 100vh;
-    display: flex;
-    width: 100%;
-    background: linear-gradient(243.18deg, #9065BC 0%, rgba(255, 0, 108, 0.38) 100%);
-    justify-content: space-between;
-}
