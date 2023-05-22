@@ -3,14 +3,14 @@ import React from "react";
 type WeatherDetailProps = {
   humidity: number;
   rain: number;
-  airQuality: number;
+  visibility: number;
   windSpeed: number;
 };
 
 const WeatherDetail: React.FC<WeatherDetailProps> = ({
   humidity,
   rain,
-  airQuality,
+  visibility,
   windSpeed,
 }) => {
   return (
@@ -24,12 +24,12 @@ const WeatherDetail: React.FC<WeatherDetailProps> = ({
         <div className="weather-info-value">{rain}%</div>
       </div>
       <div className="weather-info-row">
-        <div className="weather-info-label">Air Quality</div>
-        <div className="weather-info-value">{airQuality}</div>
+        <div className="weather-info-label">Visibility</div>
+        <div className="weather-info-value">{visibility}</div>
       </div>
       <div className="weather-info-row">
         <div className="weather-info-label">Wind Speed</div>
-        <div className="weather-info-value">{windSpeed}mph</div>
+        <div className="weather-info-value">{windSpeed}km/h</div>
       </div>
     </div>
   );

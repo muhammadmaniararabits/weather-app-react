@@ -1,0 +1,12 @@
+.weather-forecast {
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+    
+}
+
+.forecast-item {
+    background: rgba(214, 214, 214, 0.4);
+    box-shadow: 3px -2px 14px -1px rgba(255, 255, 255, 0.6);
+    border-radius: 20px;
+}

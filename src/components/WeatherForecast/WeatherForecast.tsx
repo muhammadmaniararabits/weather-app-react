@@ -1,10 +1,10 @@
 import React from "react";
 import moment from "moment";
-// import { WeatherIcon } from "./WeatherIcon";
+import "./WeatherForecast.css";
 
 type Props = {
   forecasts: {
-    date: number;
+    date: string;
     icon: string;
     temp: number;
   }[];
@@ -15,9 +15,12 @@ export const WeatherForecast: React.FC<Props> = ({ forecasts }) => {
     <div className="weather-forecast">
       {forecasts.map((forecast, index) => (
         <div className="forecast-item" key={index}>
-          <div>{moment(forecast.date * 1000).format("ddd")}</div>
-          {/* <WeatherIcon iconCode={forecast.icon} size={2} /> */}
-          <div>{`${forecast.temp.toFixed()}°C`}</div>
+          <div>{moment(forecast.date).format("ddd")}</div>
+          <img
+            src={`http://openweathermap.org/img/wn/${forecast.icon}.png`}
+            alt="Weather Icon"
+          />
+          <div>{`${(forecast.temp - 273.15).toFixed()}°C`}</div>
         </div>
       ))}
     </div>

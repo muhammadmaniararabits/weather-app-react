@@ -4,9 +4,10 @@ import Switch from "./Switch/Switch";
 
 interface Props {
   kelvinTemp: number;
+  icon: string;
 }
 
-const WeatherDisplay: React.FC<Props> = ({ kelvinTemp }) => {
+const WeatherDisplay: React.FC<Props> = ({ kelvinTemp, icon }) => {
   const [isCelsius, setIsCelsius] = useState(true);
 
   const toggleTempUnit = () => {
@@ -17,6 +18,7 @@ const WeatherDisplay: React.FC<Props> = ({ kelvinTemp }) => {
     ? kelvinTemp - 273.15
     : (kelvinTemp - 273.15) * (9 / 5) + 32;
   const tempUnit = isCelsius ? "°C" : "°F";
+  const iconUrl = `http://openweathermap.org/img/wn/${icon}.png`;
 
   return (
     <div className="weather-container">
@@ -33,11 +35,10 @@ const WeatherDisplay: React.FC<Props> = ({ kelvinTemp }) => {
           style={{
             flex: 1,
             flexDirection: "row",
-
             marginTop: 10,
           }}
         >
-          <i className="wi wi-cloud"></i>
+          <img src={iconUrl} alt="Weather Icon" />
         </div>
         {
           <div
@@ -51,7 +52,7 @@ const WeatherDisplay: React.FC<Props> = ({ kelvinTemp }) => {
               marginRight: 100,
             }}
           >
-            <Switch></Switch>
+            <Switch switchClicked={toggleTempUnit}></Switch>
           </div>
         }
       </div>
