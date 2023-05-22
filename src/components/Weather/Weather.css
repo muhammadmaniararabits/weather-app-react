@@ -2,11 +2,13 @@
     min-height: 100vh;
     display: flex;
     background: linear-gradient(243.18deg, #9065BC 0%, rgba(255, 0, 108, 0.38) 100%);
+    font-family: 'Roboto';
 }
 
 
 .left-pane {
     width: 65%;
+    padding-left: 50px;
 }
 .right-pane {
     width: 35%;

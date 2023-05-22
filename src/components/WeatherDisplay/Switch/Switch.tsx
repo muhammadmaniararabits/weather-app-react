@@ -7,15 +7,13 @@ type Props = {
 
 const Switch: React.FC<Props> = ({ switchClicked }) => {
   return (
-    <div>
-      <label className="switch">
-        <input type="checkbox" onChange={switchClicked} />
-        <div className="slider">
-          <span>C</span>
-          <span>F</span>
-        </div>
-      </label>
-    </div>
+    <label className="switch">
+      <input type="checkbox" onChange={switchClicked} />
+      <div className="slider">
+        <span>C</span>
+        <span>F</span>
+      </div>
+    </label>
   );
 };
 

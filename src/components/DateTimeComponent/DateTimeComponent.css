@@ -2,13 +2,13 @@
 
     display: flex;
     flex-direction: column;
-    gap: 1rem;
-
-    font-family: 'Roboto';
+    gap: 2rem;
     font-style: normal;
     font-weight: 300;
-    font-size: 30px;
+    font-size: 40px;
     line-height: 120%;
+    margin-top: 50px;
+    margin-bottom: 50px;
 }
 
 .date-box {
@@ -22,9 +22,10 @@
 }
 
 .day-box {
-    font-size: 25px;
+    font-size: 36px;
 }
 
 .time-box {
-    font-size: 40px;
+    font-size: 50px;
+    letter-spacing: 0.025em;
 }
