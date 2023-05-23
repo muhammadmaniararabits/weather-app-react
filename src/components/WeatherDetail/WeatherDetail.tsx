@@ -1,4 +1,5 @@
 import React from "react";
+import "./WeatherDetail.css";
 
 type WeatherDetailProps = {
   humidity: number;

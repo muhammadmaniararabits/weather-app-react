@@ -111,6 +111,7 @@ const Weather = () => {
             setCity(city);
           }}
         ></LocationSearch>
+        <div className="clock-box" />
         <LineWithIcon />
         <WeatherDetail
           humidity={weather.list[0].main.humidity}

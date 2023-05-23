@@ -1,0 +1,17 @@
+.line-box { 
+    display: flex;
+    align-items : center;    
+    margin-left: 50px;
+    margin-top: 70px; 
+}
+
+.line-info {
+    border: 2px solid rgba(255, 255, 255, 0.26);
+    height: 0px;
+    width: 80%;
+    margin-right: 20px;
+}
+.info-image {
+    height: 40px;
+    width: 40px;
+}

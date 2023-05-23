@@ -1,18 +1,15 @@
 import React from "react";
-import { FiInfo } from "react-icons/fi";
+import "./LineWithIcon.css";
 
 const LineWithIcon = () => {
   return (
-    <div style={{ display: "flex", alignItems: "center" }}>
-      <div
-        style={{
-          height: "1px",
-          width: "200px",
-          backgroundColor: "white",
-          marginLeft: "5px",
-        }}
+    <div className="line-box">
+      <div className="line-info" />
+      <img
+        className="info-image"
+        src={require("../../Assets/infoIcon.png")}
+        alt="Info icon"
       />
-      <FiInfo className="icon" />
     </div>
   );
 };

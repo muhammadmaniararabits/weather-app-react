@@ -1,0 +1,20 @@
+.weather-info-container {
+    display: grid;
+    grid-template-columns: auto auto;
+    margin-top: 50px;
+    text-align: center;
+    gap: 70px;
+}
+
+.weather-info-label {
+    font-weight: 300;
+    font-size: 32px;
+    line-height: 38px;
+}
+
+.weather-info-value {
+    padding-top: 10px;
+    font-weight: 400;
+    font-size: 32px;
+    line-height: 38px;
+}
