@@ -2,11 +2,37 @@
     display: flex;
     flex-direction: row;
     gap: 2rem;
-    
+    margin-top: 50px;
+    margin-bottom: 50px;
 }
 
 .forecast-item {
     background: rgba(214, 214, 214, 0.4);
     box-shadow: 3px -2px 14px -1px rgba(255, 255, 255, 0.6);
     border-radius: 20px;
+    width: 130px;
+    height: 210px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.forecast-date {
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 28px;
+    margin-top: 15px;
+    text-shadow: -1.13852px 1.70778px 0.569258px rgba(0, 0, 0, 0.1);
+}
+
+.forecast-image {
+    filter: drop-shadow(0px -2px 8px rgba(0, 0, 0, 0.5)) drop-shadow(1px 4px 4px rgba(0, 0, 0, 0.5));
+    height: max-content;
+    height: 120px;
+}
+
+.forecast-temperature {
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 28px;
 }

@@ -15,12 +15,17 @@ export const WeatherForecast: React.FC<Props> = ({ forecasts }) => {
     <div className="weather-forecast">
       {forecasts.map((forecast, index) => (
         <div className="forecast-item" key={index}>
-          <div>{moment(forecast.date).format("ddd")}</div>
+          <div className="forecast-date">
+            {moment(forecast.date).format("ddd")}
+          </div>
           <img
-            src={`http://openweathermap.org/img/wn/${forecast.icon}.png`}
+            className="forecast-image"
+            src={`http://openweathermap.org/img/wn/${forecast.icon}@4x.png`}
             alt="Weather Icon"
           />
-          <div>{`${(forecast.temp - 273.15).toFixed()}°C`}</div>
+          <div className="forecast-temperature">{`${(
+            forecast.temp - 273.15
+          ).toFixed()}°C`}</div>
         </div>
       ))}
     </div>
