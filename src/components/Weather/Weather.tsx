@@ -78,7 +78,7 @@ const Weather = () => {
           humidity={weather.list[0].main.humidity}
           rain={rainValue}
         ></WeatherInfo>
-        <WeatherForecast
+        {/* <WeatherForecast
           forecasts={[
             {
               date: weather.list[1].dt_txt,
@@ -96,7 +96,7 @@ const Weather = () => {
               temp: weather.list[3].main.temp,
             },
           ]}
-        />
+        /> */}
       </div>
       <div className="right-pane">
         <div className="opaque-side-pane"></div>

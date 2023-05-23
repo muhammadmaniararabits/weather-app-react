@@ -9,32 +9,41 @@ interface Props {
 
 const WeatherInfo: React.FC<Props> = ({ wind, humidity, rain }) => {
   const rainDisplay = () => {
-    if (rain) {
-      return (
-        <div>
-          <div> | </div>
-          <div className="weather-info-label">
-            <i className="wi wi-rain"></i>
-            <span>Rain {rain!}%</span>
-          </div>
-        </div>
-      );
-    }
-  };
-  return (
-    <div className="weather-info-container">
-      <div className="weather-info-text">
-        <div className="weather-info-label">
-          <i className="wi wi-direction-right"></i>
-          <span>Wind </span> {wind} km/h
-        </div>
-        <div> | </div>
-        <div className="weather-info-label">
-          <i className="wi wi-humidity"></i>
-          <span>Hum</span> {humidity}%
-        </div>
-        {rainDisplay()}
+    // if (rain) {
+    return (
+      <div className="weather-info-box">
+        <div className="line"> </div>
+        <img
+          className="weather-info-image"
+          src={require("./../../Assets/rain.png")}
+          alt="image logo"
+        />
+        <div className="weather-info-text">Rain {rain}%</div>
       </div>
+    );
+    // }
+  };
+
+  return (
+    <div className="weather-info">
+      <div className="weather-info-box">
+        <img
+          className="weather-info-image"
+          src={require("../../Assets/wind.png")}
+          alt="wind logo"
+        />
+        <div className="weather-info-text">Wind {wind} km/h</div>
+      </div>
+      <div className="weather-info-box">
+        <div className="line"> </div>
+        <img
+          className="weather-info-image"
+          src={require("./../../Assets/hum.png")}
+          alt="image logo"
+        />{" "}
+        <div className="weather-info-text">Hum {humidity}%</div>
+      </div>
+      {rainDisplay()}
     </div>
   );
 };
