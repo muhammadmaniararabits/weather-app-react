@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FaMapMarkerAlt } from "react-icons/fa";
+import "./LocationSearch.css";
 
 interface Props {
   currentCity: string;
@@ -10,19 +10,35 @@ const LocationSearch: React.FC<Props> = ({ currentCity, onSearch }) => {
   const [city, setCity] = useState(currentCity);
 
   const handleSearch = () => {
+    console.log("Button clicked");
     onSearch(city);
   };
 
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setCity(e.target.value);
+  };
+
   return (
-    <div className="location-icon">
-      <FaMapMarkerAlt />
+    <div className="location-search">
+      <img
+        className="location-image"
+        src={require("../../Assets/location.png")}
+        alt="location logo"
+      />
       <input
+        className="location-input"
         type="text"
         placeholder="Enter city name"
         value={city}
-        onChange={(e) => setCity(e.target.value)}
+        onChange={handleInputChange}
       />
-      <button onClick={handleSearch}>Search</button>
+      <button className="location-button" onClick={handleSearch}>
+        <img
+          className="location-button-image"
+          src={require("../../Assets/addLocation.png")}
+          alt="add location logo"
+        />
+      </button>
     </div>
   );
 };

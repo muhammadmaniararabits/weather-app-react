@@ -1,0 +1,45 @@
+.location-search {
+    display: flex;
+    margin-top: 100px;
+    grid-template-columns: 50px 50% 100px;
+    align-items: center;
+    align-content: center;
+}
+
+.location-input{
+    background-color:transparent;
+    border: none;
+    width: 80%;
+    color: white;
+
+    font-weight: 300;
+    font-family: 'Roboto';
+    font-size: 32px;
+    letter-spacing: 0.012em;
+    line-height: 120%;
+    
+    margin-left: 25px;
+    margin-right: 25px;
+    padding-left: 10px;
+    padding-right: 10px;
+    z-index: 1;
+}
+
+.location-button {
+    margin-right: 50px;
+    background-color:transparent;
+    border: none;
+    z-index: 2;
+}
+
+.location-image {
+    width: 32px;
+    height: 44px;
+    margin-left: 50px;
+    background-color:transparent;
+}
+
+.location-button-image {
+    height: 60px;
+    width: 60px;
+}
