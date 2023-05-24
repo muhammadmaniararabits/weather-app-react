@@ -111,7 +111,18 @@ const Weather = () => {
             setCity(city);
           }}
         ></LocationSearch>
-        <div className="clock-box" />
+        <div className="clock-box">
+          <ClockComponent
+            title="Sunrise"
+            time="05:35"
+            image="sunrise"
+          ></ClockComponent>
+          <ClockComponent
+            title="Sunset"
+            time="19:03"
+            image="sunset"
+          ></ClockComponent>
+        </div>
         <LineWithIcon />
         <WeatherDetail
           humidity={weather.list[0].main.humidity}

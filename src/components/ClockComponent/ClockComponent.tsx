@@ -1,67 +1,50 @@
 import React, { useState, useEffect } from "react";
 import moment from "moment";
 import AnalogClock from "analog-clock-react";
-import { WiSunset } from "react-icons/wi";
 import "./ClockComponent.css";
 
 type ClockProps = {
-  time: number;
-  iconClass: string;
+  title: string;
+  time: string;
+  image: string;
 };
 
-const ClockComponent: React.FC<ClockProps> = ({ time, iconClass }) => {
-  const [currentTime, setCurrentTime] = useState(moment());
+const ClockComponent: React.FC<ClockProps> = ({ title, time, image }) => {
+  const formattedTime = moment(time, "HH:mm");
+  console.log(`Formatted Time ${formattedTime}`);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentTime(moment());
-    }, 1000);
-    return () => clearInterval(interval);
-  }, []);
+  const hour = formattedTime.hour();
+  const minute = formattedTime.minute();
+  const second = formattedTime.second();
+  const timeInFormat = formattedTime.format("h:mm A");
 
   const analogClockOptions = {
     useCustomTime: true,
     width: "100%",
-    border: true,
     baseColor: "#0000",
     handColors: {
-      second: "red",
-      minute: "blue",
-      hour: "black",
+      minute: "#0038FF",
+      hour: "#4F4F4F",
+      second: "#FF0000",
     },
-    handLength: {
-      second: 60,
-      minute: 50,
-      hour: 40,
-    },
-    "second-hand": {
-      color: "#d81c7a",
-      width: 1,
-      length: -8,
-    },
-    "minute-hand": {
-      color: "#2e3131",
-      width: 3,
-      length: -15,
-    },
-    "hour-hand": {
-      color: "#2e3131",
-      width: 5,
-      length: -30,
-    },
-    showMinuteScale: true,
-    showHourScale: true,
+    seconds: second,
+    minutes: minute,
+    hours: hour,
   };
 
-  const formattedTime = moment(time).format("h:mm A");
-
   return (
-    <div className="sunset-container">
-      <div className="analog-clock-container">
-        <AnalogClock {...analogClockOptions} time={formattedTime} />
+    <div className="clock-container">
+      <div className="clock-title">{title}</div>
+      <div className="clock-card">
+        <div className="analog-clock-container">
+          <AnalogClock {...analogClockOptions} time={formattedTime} />
+        </div>
+        <div className="clock-time">{timeInFormat}</div>
+        <img
+          className="clock-image"
+          src={require(`../../Assets/${image}.png`)}
+        />
       </div>
-      <div className="sunset-time">{formattedTime}</div>
-      <WiSunset className={iconClass} />
     </div>
   );
 };
