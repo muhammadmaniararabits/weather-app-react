@@ -11,7 +11,6 @@ type ClockProps = {
 
 const ClockComponent: React.FC<ClockProps> = ({ title, time, image }) => {
   const formattedTime = moment(time, "HH:mm");
-  console.log(`Formatted Time ${formattedTime}`);
 
   const hour = formattedTime.hour();
   const minute = formattedTime.minute();

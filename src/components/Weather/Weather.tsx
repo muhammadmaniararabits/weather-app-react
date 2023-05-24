@@ -8,6 +8,7 @@ import ClockComponent from "../ClockComponent/ClockComponent";
 import LineWithIcon from "../LineWithIcon/LineWithIcon";
 import WeatherDetail from "../WeatherDetail/WeatherDetail";
 import { WeatherForecast } from "../WeatherForecast/WeatherForecast";
+import moment from "moment";
 
 type Rain = {
   [key: string]: number;
@@ -26,6 +27,7 @@ type WeatherIcon = {
 type WeatherObject = {
   main: Main;
   weather: WeatherIcon[];
+  dt: number;
   dt_txt: string;
   visibility: number;
   pop: number;
@@ -65,6 +67,32 @@ const Weather = () => {
   const rain = weather.list[0].rain;
   if (rain) rainValue = Object.values(rain!)[0] ?? undefined;
 
+  const getForecastWeather = () => {
+    const originalList = weather.list.map((weatherItem) => {
+      return {
+        date: weatherItem.dt_txt,
+        icon: weatherItem.weather[0].icon,
+        temp: weatherItem.main.temp,
+        dt: weatherItem.dt,
+      };
+    });
+    // Create a Map of unique dates as keys and objects as values
+    const uniqueDatesMap = new Map<string, (typeof originalList)[0]>();
+
+    originalList.forEach((item) => {
+      const date = moment.unix(item.dt).format("YYYY-MM-DD");
+      if (!uniqueDatesMap.has(date)) {
+        uniqueDatesMap.set(date, item);
+      }
+    });
+
+    // Create a subset list based on unique dates
+    const subsetList = Array.from(uniqueDatesMap.values());
+
+    console.log(subsetList);
+    return subsetList.slice(1);
+  };
+
   return (
     <div className="main-pane">
       <div className="left-pane">
@@ -78,30 +106,7 @@ const Weather = () => {
           humidity={weather.list[0].main.humidity}
           rain={rainValue}
         ></WeatherInfo>
-        <WeatherForecast
-          forecasts={[
-            {
-              date: weather.list[1].dt_txt,
-              icon: weather.list[1].weather[0].icon,
-              temp: weather.list[1].main.temp,
-            },
-            {
-              date: weather.list[2].dt_txt,
-              icon: weather.list[2].weather[0].icon,
-              temp: weather.list[2].main.temp,
-            },
-            {
-              date: weather.list[3].dt_txt,
-              icon: weather.list[3].weather[0].icon,
-              temp: weather.list[3].main.temp,
-            },
-            {
-              date: weather.list[4].dt_txt,
-              icon: weather.list[4].weather[0].icon,
-              temp: weather.list[4].main.temp,
-            },
-          ]}
-        />
+        <WeatherForecast forecasts={getForecastWeather()} />
       </div>
       <div className="right-pane">
         <div className="opaque-side-pane"></div>

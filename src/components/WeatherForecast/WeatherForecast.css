@@ -1,4 +1,4 @@
-.weather-forecast {
+ .weather-forecast-card {
     display: flex;
     flex-direction: row;
     gap: 2rem;
@@ -6,15 +6,28 @@
     margin-bottom: 50px;
 }
 
-.forecast-item {
+.slick-list {
+    width: 1000px;
+}
+
+.slick-slide>div {
+    padding: 25px;
+    /* width: 200px; */
+    /* background-color: black; */
+}
+
+.weather-forecast-item {
     background: rgba(214, 214, 214, 0.4);
     box-shadow: 3px -2px 14px -1px rgba(255, 255, 255, 0.6);
     border-radius: 20px;
-    width: 130px;
+    width: max-content;
     height: 210px;
-    display: flex;
+    margin: 2px;
+    display: flex !important;
     flex-direction: column;
     align-items: center;
+    z-index: 2px;
+    /* border: 1px solid purple; */
 }
 
 .forecast-date {
