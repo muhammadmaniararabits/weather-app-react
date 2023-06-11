@@ -7,7 +7,7 @@ import LocationSearch from "../LocationSearch/LocationSearch";
 import ClockComponent from "../ClockComponent/ClockComponent";
 import LineWithIcon from "../LineWithIcon/LineWithIcon";
 import WeatherDetail from "../WeatherDetail/WeatherDetail";
-import { WeatherForecast } from "../WeatherForecast/WeatherForecast";
+import { WeatherForecast, Forecast } from "../WeatherForecast/WeatherForecast";
 import moment from "moment";
 import useWeatherProvider from "../../components/WeatherProvider";
 
@@ -93,13 +93,15 @@ const Weather = () => {
 
     // Create a subset list based on unique dates
     const subsetList = Array.from(uniqueDatesMap.values());
-
-    console.log(subsetList);
     return subsetList.slice(1);
   };
 
   const handleCelsiusChange = (value: boolean) => {
     setIsCelsius(value);
+  };
+
+  const handleForecastItemClick = (index: number, forecast: Forecast) => {
+    console.log(`Selected item ${index} and ${forecast}`);
   };
 
   return (
@@ -120,6 +122,7 @@ const Weather = () => {
         <WeatherForecast
           isCelsius={isCelsius}
           forecasts={getForecastWeather()}
+          onForecastItemClick={handleForecastItemClick}
         />
       </div>
       <div className="right-pane">

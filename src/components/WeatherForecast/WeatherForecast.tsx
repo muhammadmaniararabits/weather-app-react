@@ -6,7 +6,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { getTemperature, getTemperatureUnit } from "../../components/utils";
 
-interface Forecast {
+export interface Forecast {
   date: string;
   icon: string;
   temp: number;
@@ -15,11 +15,13 @@ interface Forecast {
 interface WeatherForecastProps {
   isCelsius: boolean;
   forecasts: Forecast[];
+  onForecastItemClick: (index: number, forecast: Forecast) => void;
 }
 
 export const WeatherForecast: React.FC<WeatherForecastProps> = ({
   isCelsius,
   forecasts,
+  onForecastItemClick,
 }) => {
   const sliderRef = useRef<Slider>(null);
   const sliderSettings = {
@@ -28,46 +30,16 @@ export const WeatherForecast: React.FC<WeatherForecastProps> = ({
     variableWidth: true,
   };
 
-  useEffect(() => {
-    console.log(`Temperature unit change to ${isCelsius}`);
-  }, [isCelsius]);
-
-  const renderCustomNextArrow = (
-    props: CustomArrowProps
-  ): React.ReactElement => {
-    const { onClick, className } = props;
-    return (
-      <button
-        className={className}
-        onClick={onClick}
-        disabled={!sliderRef.current}
-      >
-        Next
-      </button>
-    );
-  };
-
-  const renderCustomPrevArrow = (
-    props: CustomArrowProps
-  ): React.ReactElement => {
-    const { onClick, className } = props;
-    return (
-      <button
-        className={className}
-        onClick={onClick}
-        disabled={!sliderRef.current}
-      >
-        Previous
-      </button>
-    );
-  };
-
   const forecastItem = (index: number, forecast: Forecast) => {
     const temp: number = getTemperature(isCelsius, forecast.temp);
     const tempUnit: string = getTemperatureUnit(isCelsius);
 
+    const handleClick = () => {
+      onForecastItemClick(index, forecast);
+    };
+
     return (
-      <div className="weather-forecast-item" key={index}>
+      <div className="weather-forecast-item" key={index} onClick={handleClick}>
         <div className="forecast-date">
           {moment(forecast.date).format("ddd")}
         </div>

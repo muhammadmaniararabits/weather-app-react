@@ -10,7 +10,6 @@ const LocationSearch: React.FC<Props> = ({ currentCity, onSearch }) => {
   const [city, setCity] = useState(currentCity);
 
   const handleSearch = () => {
-    console.log("Button clicked");
     onSearch(city);
   };
 
