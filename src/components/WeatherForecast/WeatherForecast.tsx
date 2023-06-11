@@ -1,9 +1,10 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import moment from "moment";
 import Slider, { Settings, CustomArrowProps } from "react-slick";
 import "./WeatherForecast.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { getTemperature, getTemperatureUnit } from "../../components/utils";
 
 interface Forecast {
   date: string;
@@ -12,21 +13,24 @@ interface Forecast {
 }
 
 interface WeatherForecastProps {
+  isCelsius: boolean;
   forecasts: Forecast[];
 }
 
 export const WeatherForecast: React.FC<WeatherForecastProps> = ({
+  isCelsius,
   forecasts,
 }) => {
   const sliderRef = useRef<Slider>(null);
   const sliderSettings = {
     dots: false,
     infinite: false,
-    // speed: 500,
-    // slidesToShow: 1,
-    // slidesToScroll: 1,
     variableWidth: true,
   };
+
+  useEffect(() => {
+    console.log(`Temperature unit change to ${isCelsius}`);
+  }, [isCelsius]);
 
   const renderCustomNextArrow = (
     props: CustomArrowProps
@@ -36,11 +40,7 @@ export const WeatherForecast: React.FC<WeatherForecastProps> = ({
       <button
         className={className}
         onClick={onClick}
-        disabled={
-          !sliderRef.current //||
-          // sliderRef.current.innerSlider.state.currentSlide ===
-          // forecasts.length - 1
-        }
+        disabled={!sliderRef.current}
       >
         Next
       </button>
@@ -55,10 +55,7 @@ export const WeatherForecast: React.FC<WeatherForecastProps> = ({
       <button
         className={className}
         onClick={onClick}
-        disabled={
-          !sliderRef.current //||
-          // sliderRef.current.innerSlider.state.currentSlide === 0
-        }
+        disabled={!sliderRef.current}
       >
         Previous
       </button>
@@ -66,6 +63,9 @@ export const WeatherForecast: React.FC<WeatherForecastProps> = ({
   };
 
   const forecastItem = (index: number, forecast: Forecast) => {
+    const temp: number = getTemperature(isCelsius, forecast.temp);
+    const tempUnit: string = getTemperatureUnit(isCelsius);
+
     return (
       <div className="weather-forecast-item" key={index}>
         <div className="forecast-date">
@@ -76,9 +76,7 @@ export const WeatherForecast: React.FC<WeatherForecastProps> = ({
           src={`http://openweathermap.org/img/wn/${forecast.icon}@4x.png`}
           alt="Weather Icon"
         />
-        <div className="forecast-temperature">{`${(
-          forecast.temp - 273.15
-        ).toFixed()}°C`}</div>
+        <div className="forecast-temperature">{`${temp.toFixed()}${tempUnit}`}</div>
       </div>
     );
   };

@@ -1,23 +1,27 @@
 import React, { useState } from "react";
 import "./WeatherDisplay.css";
 import Switch from "./Switch/Switch";
+import { getTemperature, getTemperatureUnit } from "../../components/utils";
 
 interface Props {
   kelvinTemp: number;
   icon: string;
+  isCelsius: boolean;
+  setCelsius: (value: boolean) => void;
 }
 
-const WeatherDisplay: React.FC<Props> = ({ kelvinTemp, icon }) => {
-  const [isCelsius, setIsCelsius] = useState(true);
-
+const WeatherDisplay: React.FC<Props> = ({
+  kelvinTemp,
+  icon,
+  isCelsius,
+  setCelsius,
+}) => {
   const toggleTempUnit = () => {
-    setIsCelsius(!isCelsius);
+    setCelsius(!isCelsius);
   };
 
-  const temp = isCelsius
-    ? kelvinTemp - 273.15
-    : (kelvinTemp - 273.15) * (9 / 5) + 32;
-  const tempUnit = isCelsius ? "°C" : "°F";
+  const temp: number = getTemperature(isCelsius, kelvinTemp);
+  const tempUnit: string = getTemperatureUnit(isCelsius);
   const iconUrl = `http://openweathermap.org/img/wn/${icon}@4x.png`;
 
   return (

@@ -9,6 +9,7 @@ import LineWithIcon from "../LineWithIcon/LineWithIcon";
 import WeatherDetail from "../WeatherDetail/WeatherDetail";
 import { WeatherForecast } from "../WeatherForecast/WeatherForecast";
 import moment from "moment";
+import useWeatherProvider from "../../components/WeatherProvider";
 
 type Rain = {
   [key: string]: number;
@@ -41,7 +42,9 @@ type Weather = {
 const Weather = () => {
   const [weather, setWeather] = useState<Weather>();
   const [city, setCity] = useState<string>("Abu Dhabi");
+  const [currentCity, setCurrentCity] = useState<string>("Abu Dhabi");
   const key = "76542cea0f0911efea16d4191c2938d0";
+  const { isCelsius, setIsCelsius } = useWeatherProvider();
 
   useEffect(() => {
     const fetchWeather = async () => {
@@ -51,8 +54,10 @@ const Weather = () => {
       const data = await response.json();
       if (data.cod === "404") {
         alert("Please type correct city");
+        setCity(currentCity);
+        return;
       }
-
+      setCurrentCity(city);
       setWeather(data);
     };
 
@@ -93,12 +98,18 @@ const Weather = () => {
     return subsetList.slice(1);
   };
 
+  const handleCelsiusChange = (value: boolean) => {
+    setIsCelsius(value);
+  };
+
   return (
     <div className="main-pane">
       <div className="left-pane">
         <WeatherDisplay
           kelvinTemp={weather.list[0].main.temp}
           icon={weather.list[0].weather[0].icon}
+          isCelsius={isCelsius}
+          setCelsius={handleCelsiusChange}
         />
         <DateTimeComponent dateTime={weather.list[0].dt_txt} />
         <WeatherInfo
@@ -106,7 +117,10 @@ const Weather = () => {
           humidity={weather.list[0].main.humidity}
           rain={rainValue}
         ></WeatherInfo>
-        <WeatherForecast forecasts={getForecastWeather()} />
+        <WeatherForecast
+          isCelsius={isCelsius}
+          forecasts={getForecastWeather()}
+        />
       </div>
       <div className="right-pane">
         <div className="opaque-side-pane"></div>
