@@ -35,16 +35,30 @@ type WeatherObject = {
   wind: Wind;
   rain?: Rain;
 };
-type Weather = {
-  list: WeatherObject[];
-};
+// type Weather = {
+//   list: WeatherObject[];
+// };
 
 const Weather = () => {
-  const [weather, setWeather] = useState<Weather>();
+  const [weather, setWeather] = useState<WeatherObject[]>();
+  const [selectedWeather, setSelectedWeather] = useState<WeatherObject>();
   const [city, setCity] = useState<string>("Abu Dhabi");
   const [currentCity, setCurrentCity] = useState<string>("Abu Dhabi");
   const key = "76542cea0f0911efea16d4191c2938d0";
   const { isCelsius, setIsCelsius } = useWeatherProvider();
+
+  const getForecastWeather = (originalList: WeatherObject[]) => {
+    const uniqueDatesMap = new Map<string, (typeof originalList)[0]>();
+
+    originalList.forEach((item) => {
+      const date = moment.unix(item.dt).format("YYYY-MM-DD");
+      if (!uniqueDatesMap.has(date)) {
+        uniqueDatesMap.set(date, item);
+      }
+    });
+    const subsetList = Array.from(uniqueDatesMap.values());
+    return subsetList.slice(1);
+  };
 
   useEffect(() => {
     const fetchWeather = async () => {
@@ -58,7 +72,8 @@ const Weather = () => {
         return;
       }
       setCurrentCity(city);
-      setWeather(data);
+      setWeather(getForecastWeather(data.list));
+      setSelectedWeather(data.list[0]);
     };
 
     fetchWeather();
@@ -69,11 +84,19 @@ const Weather = () => {
   }
 
   var rainValue: number = 0;
-  const rain = weather.list[0].rain;
+  const rain = selectedWeather?.rain;
   if (rain) rainValue = Object.values(rain!)[0] ?? undefined;
 
-  const getForecastWeather = () => {
-    const originalList = weather.list.map((weatherItem) => {
+  const handleCelsiusChange = (value: boolean) => {
+    setIsCelsius(value);
+  };
+
+  const handleForecastItemClick = (index: number, forecast: Forecast) => {
+    setSelectedWeather(weather[index]);
+  };
+
+  const getForecastList = () => {
+    return weather.map((weatherItem) => {
       return {
         date: weatherItem.dt_txt,
         icon: weatherItem.weather[0].icon,
@@ -81,47 +104,26 @@ const Weather = () => {
         dt: weatherItem.dt,
       };
     });
-    // Create a Map of unique dates as keys and objects as values
-    const uniqueDatesMap = new Map<string, (typeof originalList)[0]>();
-
-    originalList.forEach((item) => {
-      const date = moment.unix(item.dt).format("YYYY-MM-DD");
-      if (!uniqueDatesMap.has(date)) {
-        uniqueDatesMap.set(date, item);
-      }
-    });
-
-    // Create a subset list based on unique dates
-    const subsetList = Array.from(uniqueDatesMap.values());
-    return subsetList.slice(1);
-  };
-
-  const handleCelsiusChange = (value: boolean) => {
-    setIsCelsius(value);
-  };
-
-  const handleForecastItemClick = (index: number, forecast: Forecast) => {
-    console.log(`Selected item ${index} and ${forecast}`);
   };
 
   return (
     <div className="main-pane">
       <div className="left-pane">
         <WeatherDisplay
-          kelvinTemp={weather.list[0].main.temp}
-          icon={weather.list[0].weather[0].icon}
+          kelvinTemp={selectedWeather!.main.temp}
+          icon={selectedWeather!.weather[0].icon}
           isCelsius={isCelsius}
           setCelsius={handleCelsiusChange}
         />
-        <DateTimeComponent dateTime={weather.list[0].dt_txt} />
+        <DateTimeComponent dateTime={selectedWeather!.dt_txt} />
         <WeatherInfo
-          wind={weather.list[0].wind.speed}
-          humidity={weather.list[0].main.humidity}
+          wind={selectedWeather!.wind.speed}
+          humidity={selectedWeather!.main.humidity}
           rain={rainValue}
         ></WeatherInfo>
         <WeatherForecast
           isCelsius={isCelsius}
-          forecasts={getForecastWeather()}
+          forecasts={getForecastList()}
           onForecastItemClick={handleForecastItemClick}
         />
       </div>
@@ -147,10 +149,10 @@ const Weather = () => {
         </div>
         <LineWithIcon />
         <WeatherDetail
-          humidity={weather.list[0].main.humidity}
-          rain={weather.list[0].pop}
-          visibility={weather.list[0].visibility}
-          windSpeed={weather.list[0].wind.speed}
+          humidity={selectedWeather!.main.humidity}
+          rain={selectedWeather!.pop}
+          visibility={selectedWeather!.visibility}
+          windSpeed={selectedWeather!.wind.speed}
         />
       </div>
     </div>
