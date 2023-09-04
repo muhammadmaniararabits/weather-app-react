@@ -62,8 +62,11 @@ const Weather = () => {
 
   useEffect(() => {
     const fetchWeather = async () => {
+      // const response = await fetch(
+      //   `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${key}`
+      // );
       const response = await fetch(
-        `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${key}`
+        `http://localhost:8080/forecast?q=${city}&appid=${key}`
       );
       const data = await response.json();
       if (data.cod === "404") {
